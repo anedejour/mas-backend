@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn,Entity, OneToMany, PrimaryColumn } from 'typeorm'
 import { v4 as uuid } from 'uuid'
-import { Activy } from './Activy'
+import { Activity } from './Activity'
 
 @Entity ("courses_units")
 class CourseUnit { 
@@ -23,8 +23,8 @@ class CourseUnit {
     @CreateDateColumn()
     created_at: Date
 
-    @OneToMany(() => Activy, activy => activy.course_unit)
-    activies: Activy[]
+    @OneToMany(() => Activity, activity => activity.course_unit)
+    activities: Activity[]
 
 }
 

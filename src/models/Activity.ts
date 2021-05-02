@@ -2,13 +2,14 @@ import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryColumn } from 'type
 import { v4 as uuid } from 'uuid'
 import { CourseUnit } from './CourseUnit'
 
-@Entity ("activies")
-class Activy {
+@Entity ("activities")
+class Activity {
 
-    constructor(){
+    constructor(course_unit_id: string){
         if(!this.id){
             this.id = uuid()
         }
+        this.course_unit_id = course_unit_id;
     }
     @PrimaryColumn()
     readonly id: string
@@ -17,7 +18,7 @@ class Activy {
     name: string
 
     @Column()
-    activy_data: Date
+    activity_date: Date
 
     @Column()
     readonly course_unit_id: string
@@ -25,8 +26,8 @@ class Activy {
     @CreateDateColumn()
     created_at: Date
 
-    @ManyToOne(() => CourseUnit, course_unit => course_unit.activies)
-    course_unit: CourseUnit
+    @ManyToOne(() => CourseUnit, course_unit => course_unit.activities)
+    course_unit: CourseUnit[];
 }
 
-export { Activy }
+export { Activity }

@@ -1,43 +1,33 @@
 import {Router} from 'express';
 import {Request, Response} from 'express';
+import { ActivityController } from './controller/ActivityController';
+import { CourseUnitController } from './controller/CourseUnitController';
+import { UserController } from './controller/UserController'
+
+interface UserRequest {
+    name: string;
+    email: string;
+    password: string
+}
+
+interface CourseUnitRequest { 
+    name: string;
+    activity_date: Date;
+    course_unit_id: string
+}
+
+interface ActivityRequest {
+    name: string;
+    description: string
+}
+const userController = new UserController();
+const activityController = new ActivityController();
+const courseUnityController = new CourseUnitController();
 
 const routes = Router();
 
-routes.get('/user/:id', (request:Request, response:Response) => {
-    const { id } = request.params;
+routes.post('/user', userController.create);
+routes.post('/activity', activityController.create);
+routes.post('/courseunity', courseUnityController.create);
 
-    response.json({
-        userId:id
-    });
-});
-
-routes.get('/user_from_request', (request:Request, response:Response) => {
-    const { nome, fase, ano, uc, nota } = request.query;
-
-    response.json({
-        nome, fase, ano, uc, nota
-    });
-});
-
-routes.get('/paramams_routes/:matricula', (request:Request, response:Response) => {
-    const { matricula } = request.params;
-
-    const { nome, fase, ano, uc, nota } = request.query;
-
-    response.json({
-        matricula,
-        nome, fase, ano, uc, nota
-    })
-
-})
-
-routes.post('/user', (request:Request, response:Response) => {
-    const{ nome, fase, ano, uc, nota } = request.body;
-
-    const user = ({
-        nome, fase, ano, uc, nota
-    });
-    return response.json(user);
-})
-
-export default routes
+export default routes;
