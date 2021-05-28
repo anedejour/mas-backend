@@ -7,7 +7,7 @@ interface Token {
     role: string;
 }
 
-export default function authenticated(response:Response, next: NextFunction, request:Request) {
+export default function authenticated(next: NextFunction, request:Request) {
 
     const headerAuthorization = request.headers.authorization
 
@@ -26,9 +26,9 @@ export default function authenticated(response:Response, next: NextFunction, req
 
     }
 
-    const {sub, role} = verifyToken as Token
+    const {sub, role} = verifyToken as Token;
 
-    request.body = { 
+    request.body.user = { 
         id: sub,
         role: role
     }
